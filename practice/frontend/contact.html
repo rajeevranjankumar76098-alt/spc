@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  color:#333;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px}
+nav a, nav span{
+  color:#fff;
+  margin-left:20px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:40px;
+  text-align:center;
+}
+.page-title h2{color:#0b5ed7}
+
+/* SECTION */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 30px;
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+/* CONTACT INFO */
+.info-box{
+  background:#fff;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.info-box h3{margin-top:0;color:#0b5ed7}
+.info-box p{margin:8px 0}
+
+/* FORM */
+.form-box{
+  background:#fff;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.form-box input, .form-box textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:15px;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+.form-box button{
+  background:#0b5ed7;
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+/* MAP */
+.map-box{
+  margin-top:30px;
+  background:#fff;
+  border-radius:8px;
+  padding:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.map-placeholder{
+  height:250px;
+  background:#ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#555;
+  font-size:14px;
+}
+
+/* FOOTER */
+footer{
+  background:#084298;
+  color:#fff;
+  margin-top:50px;
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav id="nav"></nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>Contact Us</h2>
+  <p>We are here to help you</p>
+</div>
+
+<!-- CONTENT -->
+<section class="section">
+
+  <div class="contact-grid">
+
+    <!-- CONTACT INFO -->
+    <div class="info-box">
+      <h3>Get in Touch</h3>
+      <p>📞 Phone: <b>9470884239</b></p>
+      <p>📧 Email: serviceprovidercentre00@gmail.com</p>
+      <p>🏠 Doorstep Service Available</p>
+
+      <p>
+        <a href="tel:9470884239">📞 Call Now</a><br><br>
+        <a href="https://wa.me/919470884239" target="_blank">💬 WhatsApp Chat</a>
+      </p>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="form-box">
+      <h3>Send Us a Message</h3>
+      <form onsubmit="submitForm(event)">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="text" id="mobile" placeholder="Mobile Number" required>
+        <textarea id="message" rows="4" placeholder="Your Message"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- MAP -->
+  <div class="map-box">
+    <div class="map-placeholder">
+      Google Map Location (add iframe here)
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+/* SMART NAV */
+function updateNav(){
+  const nav = document.getElementById("nav");
+  const customer = JSON.parse(localStorage.getItem("customer"));
+
+  if(customer){
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <a href="profile.html">Profile</a>
+    `;
+  }else{
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <span onclick="openLogin()">Login</span>
+      <span onclick="openSignup()">Signup</span>
+    `;
+  }
+}
+updateNav();
+
+/* FORM SUBMIT (DEMO) */
+function submitForm(e){
+  e.preventDefault();
+  alert("Thank you! We will contact you soon.");
+}
+</script>
+
+</body>
+</html>

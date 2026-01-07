@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franchise – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  color:#333;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px}
+nav a, nav span{
+  color:#fff;
+  margin-left:20px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:40px;
+  text-align:center;
+}
+.page-title h2{color:#0b5ed7}
+
+/* SECTION */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 30px;
+}
+.card{
+  background:#fff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  margin-bottom:30px;
+}
+.card h3{color:#0b5ed7;margin-top:0}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+.point{
+  background:#f4f6fb;
+  padding:18px;
+  border-radius:6px;
+}
+
+/* FORM */
+form input, form textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:15px;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+form button{
+  background:#0b5ed7;
+  color:#fff;
+  border:none;
+  padding:10px 25px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  background:#084298;
+  color:#fff;
+  margin-top:50px;
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav id="nav"></nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>Franchise Opportunity</h2>
+  <p>Partner with SPC and grow together</p>
+</div>
+
+<!-- CONTENT -->
+<section class="section">
+
+  <!-- INTRO -->
+  <div class="card">
+    <h3>Why Take SPC Franchise?</h3>
+    <p>
+      SPC – Service Provider Centre offers a unique opportunity to start
+      and grow a local service business with a trusted brand name,
+      complete operational support, and proven service model.
+    </p>
+  </div>
+
+  <!-- BENEFITS -->
+  <div class="card">
+    <h3>Franchise Benefits</h3>
+    <div class="grid">
+      <div class="point">✔ Established Brand Support</div>
+      <div class="point">✔ Low Investment Model</div>
+      <div class="point">✔ Training & Technical Support</div>
+      <div class="point">✔ Marketing & Lead Support</div>
+      <div class="point">✔ High Growth Potential</div>
+      <div class="point">✔ Dedicated Territory</div>
+    </div>
+  </div>
+
+  <!-- REQUIREMENTS -->
+  <div class="card">
+    <h3>Basic Requirements</h3>
+    <div class="grid">
+      <div class="point">• Minimum Investment Capacity</div>
+      <div class="point">• Local Market Knowledge</div>
+      <div class="point">• Service-oriented Mindset</div>
+      <div class="point">• Basic Infrastructure</div>
+    </div>
+  </div>
+
+  <!-- INVESTMENT -->
+  <div class="card">
+    <h3>Investment Overview</h3>
+    <p>
+      Franchise investment depends on city and service coverage area.
+      Details will be shared after initial discussion with our team.
+    </p>
+  </div>
+
+  <!-- ENQUIRY FORM -->
+  <div class="card">
+    <h3>Franchise Enquiry</h3>
+    <form onsubmit="submitFranchise(event)">
+      <input type="text" placeholder="Full Name" required>
+      <input type="text" placeholder="Mobile Number" required>
+      <input type="text" placeholder="City / Location" required>
+      <textarea rows="4" placeholder="Message / Experience"></textarea>
+      <button type="submit">Submit Enquiry</button>
+    </form>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+/* SMART NAV */
+function updateNav(){
+  const nav = document.getElementById("nav");
+  const customer = JSON.parse(localStorage.getItem("customer"));
+
+  if(customer){
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <a href="profile.html">Profile</a>
+    `;
+  }else{
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <span onclick="openLogin()">Login</span>
+      <span onclick="openSignup()">Signup</span>
+    `;
+  }
+}
+updateNav();
+
+/* FORM SUBMIT (DEMO) */
+function submitFranchise(e){
+  e.preventDefault();
+  alert("Thank you! Our team will contact you soon.");
+}
+</script>
+
+</body>
+</html>

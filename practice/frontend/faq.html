@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  color:#333;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px}
+nav a, nav span{
+  color:#fff;
+  margin-left:20px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:40px;
+  text-align:center;
+}
+.page-title h2{color:#0b5ed7}
+
+/* FAQ SECTION */
+.section{
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+}
+.faq-item{
+  background:#fff;
+  margin-bottom:15px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  overflow:hidden;
+}
+.faq-question{
+  padding:18px;
+  cursor:pointer;
+  font-weight:bold;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.faq-answer{
+  display:none;
+  padding:18px;
+  border-top:1px solid #eee;
+  font-size:14px;
+  color:#555;
+}
+.faq-question span{
+  font-size:18px;
+}
+
+/* FOOTER */
+footer{
+  background:#084298;
+  color:#fff;
+  margin-top:50px;
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav id="nav"></nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>Frequently Asked Questions</h2>
+  <p>Quick answers to common questions</p>
+</div>
+
+<!-- FAQ CONTENT -->
+<section class="section">
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      How do I book a service?
+      <span>+</span>
+    </div>
+    <div class="faq-answer">
+      You can book a service by selecting the required service, adding it to cart,
+      and completing the booking form online.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      Do you provide doorstep service?
+      <span>+</span>
+    </div>
+    <div class="faq-answer">
+      Yes, all our services are provided at your doorstep by trained technicians.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      How can I track my service order?
+      <span>+</span>
+    </div>
+    <div class="faq-answer">
+      Login to your account and go to the “My Orders” section to track your service status.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      What payment methods are available?
+      <span>+</span>
+    </div>
+    <div class="faq-answer">
+      Currently, payment can be made via UPI or cash after service completion.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      What if I need to reschedule or cancel?
+      <span>+</span>
+    </div>
+    <div class="faq-answer">
+      You can contact our support team through the Contact page or WhatsApp for rescheduling or cancellation.
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+/* SMART NAV */
+function updateNav(){
+  const nav = document.getElementById("nav");
+  const customer = JSON.parse(localStorage.getItem("customer"));
+
+  if(customer){
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <a href="profile.html">Profile</a>
+    `;
+  }else{
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <span onclick="openLogin()">Login</span>
+      <span onclick="openSignup()">Signup</span>
+    `;
+  }
+}
+updateNav();
+
+/* FAQ TOGGLE */
+function toggleFAQ(el){
+  const answer = el.nextElementSibling;
+  const icon = el.querySelector("span");
+
+  if(answer.style.display === "block"){
+    answer.style.display = "none";
+    icon.innerText = "+";
+  }else{
+    answer.style.display = "block";
+    icon.innerText = "-";
+  }
+}
+</script>
+
+</body>
+</html>

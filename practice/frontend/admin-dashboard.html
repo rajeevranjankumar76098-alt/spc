@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  color:#333;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 40px;
+}
+header h1{margin:0;font-size:22px}
+
+/* LAYOUT */
+.dashboard{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  background:#084298;
+  color:#fff;
+  padding:20px;
+}
+.sidebar h3{margin-top:0}
+.sidebar a{
+  display:block;
+  color:#fff;
+  margin:12px 0;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* CONTENT */
+.content{
+  padding:30px;
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  margin-bottom:30px;
+}
+.stat-card{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.stat-card h2{margin:0;color:#0b5ed7}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+th,td{
+  padding:12px;
+  border-bottom:1px solid #ddd;
+  font-size:14px;
+}
+th{
+  background:#0b5ed7;
+  color:#fff;
+}
+select{
+  padding:5px;
+}
+button{
+  padding:6px 10px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>SPC – Admin Dashboard</h1>
+</header>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h3>Admin Menu</h3>
+    <a>Dashboard</a>
+    <a>Orders</a>
+    <a>Customers</a>
+    <a>Services</a>
+    <a onclick="logout()">Logout</a>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-card">
+        <h2 id="totalOrders">0</h2>
+        <p>Total Orders</p>
+      </div>
+      <div class="stat-card">
+        <h2 id="pendingOrders">0</h2>
+        <p>Pending Orders</p>
+      </div>
+      <div class="stat-card">
+        <h2 id="completedOrders">0</h2>
+        <p>Completed Orders</p>
+      </div>
+    </div>
+
+    <!-- ORDERS TABLE -->
+    <h3>Manage Orders</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Service</th>
+          <th>Status</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody id="orderTable">
+        <!-- Orders here -->
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<script>
+/* 🔐 SIMPLE ADMIN CHECK (demo) */
+const isAdmin = true;
+if(!isAdmin){
+  alert("Unauthorized access");
+  location.href="index.html";
+}
+
+/* LOAD ORDERS */
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+const table = document.getElementById("orderTable");
+
+/* STATS */
+document.getElementById("totalOrders").innerText = orders.length;
+document.getElementById("pendingOrders").innerText =
+  orders.filter(o=>o.status==="Pending").length;
+document.getElementById("completedOrders").innerText =
+  orders.filter(o=>o.status==="Completed").length;
+
+/* TABLE DATA */
+if(orders.length === 0){
+  table.innerHTML = "<tr><td colspan='4'>No orders found</td></tr>";
+}else{
+  orders.forEach((o,i)=>{
+    table.innerHTML += `
+      <tr>
+        <td>${o.customer || "Customer"}</td>
+        <td>${o.service}</td>
+        <td>
+          <select id="status${i}">
+            <option ${o.status==="Pending"?"selected":""}>Pending</option>
+            <option ${o.status==="Assigned"?"selected":""}>Assigned</option>
+            <option ${o.status==="Completed"?"selected":""}>Completed</option>
+          </select>
+        </td>
+        <td>
+          <button onclick="updateStatus(${i})">Save</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+/* UPDATE STATUS */
+function updateStatus(i){
+  orders[i].status = document.getElementById("status"+i).value;
+  localStorage.setItem("orders", JSON.stringify(orders));
+  alert("Order status updated");
+  location.reload();
+}
+
+/* LOGOUT */
+function logout(){
+  alert("Admin logged out");
+  location.href="index.html";
+}
+</script>
+
+</body>
+</html>

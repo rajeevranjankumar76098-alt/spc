@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cart – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#fbfbfc;
+  color:#020202;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#3c302b;
+  color:#fff;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px}
+nav a{
+  color:#fff;
+  margin-left:20px;
+  font-size:14px;
+}
+
+/* PAGE */
+.section{
+  max-width:1000px;
+  margin:40px auto;
+  padding:0 20px;
+}
+.card{
+  background:#fff;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+/* CART ITEM */
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px dashed #ccc;
+}
+.cart-item:last-child{border:none}
+.cart-item span{font-size:14px}
+.cart-item button{
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  padding:5px 10px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+/* TOTAL */
+.total{
+  text-align:right;
+  margin-top:20px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* BUTTONS */
+.actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:space-between;
+}
+.actions button{
+  padding:10px 20px;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+}
+.book{
+  background:#205eba;
+  color:#fff;
+}
+.clear{
+  background:#6c757d;
+  color:#fff;
+}
+
+/* FOOTER */
+footer{
+  background:#084298;
+  color:#fff;
+  margin-top:60px;
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</header>
+
+<section class="section">
+  <div class="card">
+    <h2>My Cart</h2>
+    <div id="cartList"></div>
+    <div class="total">Total: ₹<span id="totalAmount">0</span></div>
+
+    <div class="actions">
+      <button class="clear" onclick="clearCart()">Clear Cart</button>
+      <button class="book" onclick="goToBooking()">Proceed to Book</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const pricePerService = 299; // demo price
+
+function loadCart(){
+  const list = document.getElementById("cartList");
+  const totalEl = document.getElementById("totalAmount");
+  list.innerHTML = "";
+  let total = 0;
+
+  if(cart.length === 0){
+    list.innerHTML = "<p>Your cart is empty.</p>";
+    totalEl.innerText = "0";
+    return;
+  }
+
+  cart.forEach((item,index)=>{
+    total += pricePerService;
+    list.innerHTML += `
+      <div class="cart-item">
+        <span>${item}</span>
+        <span>₹${pricePerService}</span>
+        <button onclick="removeItem(${index})">Remove</button>
+      </div>
+    `;
+  });
+
+  totalEl.innerText = total;
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
+
+function clearCart(){
+  if(confirm("Clear all items?")){
+    cart = [];
+    localStorage.removeItem("cart");
+    loadCart();
+  }
+}
+
+function goToBooking(){
+  if(cart.length === 0){
+    alert("Cart is empty");
+    return;
+  }
+  location.href="payment.html";
+}
+
+loadCart();
+</script>
+
+</body>
+</html>

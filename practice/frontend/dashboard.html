@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders – SPC</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f6fb;color:#333}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;color:#fff;
+  padding:15px 40px;
+  display:flex;justify-content:space-between;align-items:center
+}
+header h1{font-size:22px;margin:0}
+nav span{margin-left:20px;cursor:pointer}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:35px;text-align:center
+}
+.page-title h2{color:#0b5ed7}
+
+/* TABLE */
+.section{max-width:1000px;margin:auto;padding:40px 30px}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.08)
+}
+th,td{
+  padding:12px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+  font-size:14px
+}
+th{background:#0b5ed7;color:#fff}
+.status{
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  color:#fff;
+  display:inline-block
+}
+.pending{background:orange}
+.assigned{background:#0dcaf0}
+.completed{background:green}
+
+/* FOOTER */
+footer{background:#084298;color:#fff;margin-top:50px}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;padding:12px;font-size:13px
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav>
+    <span onclick="logout()">Logout</span>
+  </nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>My Orders</h2>
+  <p>Track your service status</p>
+</div>
+
+<!-- ORDERS TABLE -->
+<section class="section">
+  <table>
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Status</th>
+        <th>Order Date</th>
+      </tr>
+    </thead>
+    <tbody id="orderTable">
+      <!-- Orders will load here -->
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+/* ---------- LOGIN CHECK ---------- */
+const customer = JSON.parse(localStorage.getItem("customer"));
+if(!customer){
+  alert("Please login first");
+  location.href = "index.html";
+}
+
+/* ---------- DEMO ORDERS (frontend) ---------- */
+/* Later: yeh data backend se aayega */
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+/* Agar pehli baar hai aur booking ki hai */
+if(orders.length === 0){
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.forEach(service=>{
+    orders.push({
+      service: service,
+      status: "Pending",
+      date: new Date().toLocaleDateString()
+    });
+  });
+  localStorage.setItem("orders", JSON.stringify(orders));
+}
+
+/* ---------- LOAD ORDERS ---------- */
+const table = document.getElementById("orderTable");
+
+if(orders.length === 0){
+  table.innerHTML = "<tr><td colspan='3'>No orders found</td></tr>";
+} else {
+  orders.forEach(o=>{
+    let statusClass = o.status.toLowerCase();
+    table.innerHTML += `
+      <tr>
+        <td>${o.service}</td>
+        <td>
+          <span class="status ${statusClass}">
+            ${o.status}
+          </span>
+        </td>
+        <td>${o.date}</td>
+      </tr>
+    `;
+  });
+}
+
+/* ---------- LOGOUT ---------- */
+function logout(){
+  localStorage.removeItem("customer");
+  location.href="index.html";
+}
+</script>
+
+</body>
+</html>

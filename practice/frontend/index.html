@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPC – Service Provider Centre</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f6fb;color:#333}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#3676d7;color:#fff;
+  padding:15px 40px;
+  display:flex;justify-content:space-between;align-items:center
+}
+header h1{font-size:22px;margin:0}
+nav a, nav span{
+  color:#fcf2f2;margin-left:20px;font-size:14px;cursor:pointer
+}
+
+/* CART */
+.cart-btn{
+  background:#996d6d;color:#dfe1e4;
+  padding:6px 12px;border-radius:20px;
+  font-size:13px;font-weight:bold;
+}
+.cart-count{
+  background:red;color:#fff;
+  padding:2px 6px;border-radius:50%;
+  font-size:12px;margin-left:5px;
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(120deg,#0b5ed7,#3d8bfd);
+  color:#fff;padding:80px 20px;text-align:center
+}
+.hero h2{font-size:36px}
+.hero p{margin:15px 0 25px}
+.hero a{
+  background:#fff;color:#0b5ed7;
+  padding:12px 28px;border-radius:4px;font-weight:bold
+}
+
+/* SECTION */
+.section{max-width:1200px;margin:auto;padding:60px 30px}
+.section h3{text-align:center;color:#0b5ed7;margin-bottom:30px}
+
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px
+}
+.card{
+  background:#fff;padding:25px;
+  border-radius:8px;text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.08)
+}
+.card button{
+  margin-top:10px;
+  background:#0b5ed7;color:#fff;
+  border:none;padding:8px 15px;
+  border-radius:4px;cursor:pointer
+}
+
+/* MODAL COMMON */
+.modal{
+  display:none;
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,.6)
+}
+.box{
+  background:#fff;
+  max-width:400px;
+  margin:100px auto;
+  padding:20px;border-radius:8px
+}
+input{
+  width:100%;padding:8px;margin-top:10px
+}
+
+/* FOOTER */
+
+footer{
+  background:#084298;
+  color:#fff;
+  margin-top:50px;
+}
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  padding:50px 30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+.footer-container h4{
+  margin-bottom:12px;
+  font-size:16px;
+}
+.footer-container p,
+.footer-container a{
+  font-size:14px;
+  color:#fff;
+  text-decoration:none;
+  margin-bottom:6px;
+  display:block;
+}
+.footer-container a:hover{
+  text-decoration:underline;
+}
+.social-icons a{
+  font-size:20px;
+  margin-right:12px;
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+}
+.modal{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,.6);
+  z-index:999;
+}
+.box{
+  background:#fff;
+  max-width:350px;
+  margin:100px auto;
+  padding:20px;
+  border-radius:6px;
+  text-align:center;
+}
+.box input{
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+}
+.box button{
+  width:100%;
+  padding:8px;
+  margin-bottom:8px;
+}
+.hero{
+  position:relative;
+  height:80vh;
+  background-size:cover;
+  background-position:center;
+  animation:slider 20s infinite;
+}
+
+/* Dark overlay for text readability */
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; 
+  width:100%; height:70%;
+  background:rgba(19, 12, 12, 0.55);
+}
+
+.hero-overlay{
+  position:absolute;
+  bottom:50%;        /* 👈 yahi main change hai */
+  left:50%;
+  transform:translateX(-50%);
+  z-index:1;
+  text-align:center;
+  color:#fff;
+  padding:20px;
+}
+
+.hero-overlay h1{
+  font-size:38px;
+  margin-bottom:10px;
+}
+.hero-overlay p{
+  font-size:16px;
+  margin-bottom:20px;
+}
+.hero-overlay button{
+  background:#0b5ed7;
+  color:#fff;
+  border:none;
+  padding:12px 30px;
+  font-size:15px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+/* Background image animation */
+@keyframes slider{
+  0%{
+    background-image:url("images/ac-repair.jpg");
+  }
+  25%{
+    background-image:url("images/washing-machine.jpg");
+  }
+  50%{
+    background-image:url("images/tv-repair.jpg");
+  }
+  75%{
+    background-image:url("images/fridge-repair.jpg");
+  }
+  100%{
+    background-image:url("images/electrician.jpg");
+  }
+}
+</style>
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+ 
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav id="nav"></nav>
+  <a href="cart.html">🛒 Cart  (<span id="cartCount">0</span>)</a>
+
+  
+</header>
+
+
+<section class="hero">
+  <div class="hero-overlay">
+    <h1>All Types of Repair Services</h1>
+    <p>Expert Technicians • Same Day Service • Doorstep Support</p>
+   
+  </div>
+</section>
+
+<!-- SERVICES -->
+ <div class="services" id="serviceList">
+
+<!-- 1 -->
+<div class="card" data-cat="home" data-name="ac repair">
+  <img src="assets/services/ac.png" class="service-img">
+  <h4>AC Repair</h4>
+  <div class="price">₹499</div>
+  <button onclick="addToCart('AC Repair')">Add to Cart</button>
+</div>
+
+<!-- 2 -->
+<div class="card" data-cat="it" data-name="tv repair">
+  <img src="assets/services/tv.png" class="service-img">
+  <h4>LED TV Repair</h4>
+  <div class="price">₹599</div>
+  <button onclick="addToCart('LED TV Repair')">Add to Cart</button>
+</div>
+
+<!-- 3 -->
+<div class="card" data-cat="home" data-name="washing machine">
+  <img src="assets/services/washing-machine.png" class="service-img">
+  <h4>Washing Machine</h4>
+  <div class="price">₹399</div>
+  <button onclick="addToCart('Washing Machine Repair')">Add to Cart</button>
+</div>
+
+<!-- 4 -->
+<div class="card" data-cat="home">
+  <img src="assets/services/fridge.png" class="service-img">
+  <h4>Refrigerator Repair</h4>
+  <div class="price">₹449</div>
+  <button onclick="addToCart('Refrigerator Repair')">Add to Cart</button>
+</div>
+
+<!-- 5 -->
+<div class="card" data-cat="home">
+  <img src="assets/services/microwave.png" class="service-img">
+  <h4>Microwave Repair</h4>
+  <div class="price">₹349</div>
+  <button onclick="addToCart('Microwave Repair')">Add to Cart</button>
+</div>
+
+<!-- 6 -->
+<div class="card" data-cat="home">
+  <img src="assets/services/geyser.png" class="service-img">
+  <h4>Geyser Repair</h4>
+  <div class="price">₹299</div>
+  <button onclick="addToCart('Geyser Repair')">Add to Cart</button>
+</div>
+
+<!-- 7 -->
+<div class="card" data-cat="home">
+  <img src="assets/services/ro.png" class="service-img">
+  <h4>RO / Water Purifier</h4>
+  <div class="price">₹399</div>
+  <button onclick="addToCart('RO Repair')">Add to Cart</button>
+</div>
+
+<!-- 8 -->
+<div class="card" data-cat="home">
+  <img src="assets/services/induction.png" class="service-img">
+  <h4>Induction Cooktop</h4>
+  <div class="price">₹249</div>
+  <button onclick="addToCart('Induction Repair')">Add to Cart</button>
+</div>
+
+<!-- 9 -->
+<div class="card" data-cat="home">
+  <img src="assets/services/mixer.png" class="service-img">
+  <h4>Mixer Grinder</h4>
+  <div class="price">₹199</div>
+  <button onclick="addToCart('Mixer Grinder Repair')">Add to Cart</button>
+</div>
+
+<!-- 10 -->
+<div class="card" data-cat="electrical">
+  <img src="assets/services/fan.png" class="service-img">
+  <h4>Ceiling Fan</h4>
+  <div class="price">₹199</div>
+  <button onclick="addToCart('Ceiling Fan Repair')">Add to Cart</button>
+</div>
+
+<!-- 11–30 -->
+<!-- Same pattern continue for remaining services -->
+
+
+    <!-- 11–20 -->
+    <div class="card"><h4>Ceiling Fan</h4><button onclick="addToCart('Ceiling Fan Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Cooler Repair</h4><button onclick="addToCart('Cooler Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Water Dispenser</h4><button onclick="addToCart('Water Dispenser Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Water Motor</h4><button onclick="addToCart('Water Motor Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Submersible Pump</h4><button onclick="addToCart('Submersible Pump Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Inverter Repair</h4><button onclick="addToCart('Inverter Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Battery Repair</h4><button onclick="addToCart('Battery Repair')">Add to Cart</button></div>
+    <div class="card"><h4>UPS Repair</h4><button onclick="addToCart('UPS Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Laptop Repair</h4><button onclick="addToCart('Laptop Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Desktop / CPU Repair</h4><button onclick="addToCart('Desktop / CPU Repair')">Add to Cart</button></div>
+
+    <!-- 21–30 -->
+    <div class="card"><h4>Printer Repair</h4><button onclick="addToCart('Printer Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Projector Repair</h4><button onclick="addToCart('Projector Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Smart Board</h4><button onclick="addToCart('Smart Board Repair')">Add to Cart</button></div>
+    <div class="card"><h4>CCTV Camera</h4><button onclick="addToCart('CCTV Camera Repair')">Add to Cart</button></div>
+    <div class="card"><h4>WiFi Router</h4><button onclick="addToCart('WiFi Router Repair')">Add to Cart</button></div>
+    <div class="card"><h4>Mobile Phone Repair</h4><button onclick="addToCart('Mobile Phone Repair')">Add to Cart</button></div>
+    <div class="card"><h4>LED Light & Wiring</h4><button onclick="addToCart('LED Light & Wiring')">Add to Cart</button></div>
+    <div class="card"><h4>Electric Rickshaw</h4><button onclick="addToCart('Electric Rickshaw Service')">Add to Cart</button></div>
+    <div class="card"><h4>TV Installation</h4><button onclick="addToCart('TV Installation')">Add to Cart</button></div>
+    <div class="card"><h4>General Electrical Work</h4><button onclick="addToCart('General Electrical Work')">Add to Cart</button></div>
+
+  </div>
+</section>
+
+<!-- CART MODAL -->
+<div class="modal" id="cartModal">
+  <div class="box">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div><br>
+    <a href="book-service.html" class="cart-btn">Proceed to Book</a><br><br>
+    <button onclick="closeCart()">Close</button>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="box">
+    <h3>Login</h3>
+    <input type="text" id="loginMobile" placeholder="Mobile Number">
+    <button onclick="login()">Login</button>
+
+    <p>
+      New user?
+      <span onclick="openSignup()" style="color:blue;cursor:pointer">
+        Signup
+      </span>
+    </p>
+
+    <button onclick="closeLogin()">Close</button>
+  </div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="modal" id="signupModal">
+  <div class="box">
+    <h3>Signup</h3>
+    <input type="text" id="signupName" placeholder="Full Name">
+    <input type="text" id="signupMobile" placeholder="Mobile Number">
+
+    <button onclick="signup()">Signup</button>
+
+    <hr>
+
+    <button onclick="googleSignup()">🔴 Signup with Google</button>
+    <button onclick="facebookSignup()">🔵 Signup with Facebook</button>
+
+    <p>
+      Already have account?
+      <span onclick="openLogin()" style="color:blue;cursor:pointer">
+        Login
+      </span>
+    </p>
+
+    <button onclick="closeSignup()">Close</button>
+  </div>
+</div>
+
+
+
+<!-- FOOTER -->
+<footer>
+
+  <div class="footer-container">
+
+    <!-- COMPANY INFO -->
+    <div>
+      <h4>SPC – Service Provider Centre</h4>
+      <p>
+        We provide reliable doorstep repair services for home appliances,
+        electronics & electrical items with trained technicians.
+      </p>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div>
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="services.html">Our Services</a>
+      <a href="book-service.html">Book Service</a>
+      <a href="franchise.html">Franchise</a>
+    </div>
+
+    <!-- SUPPORT / LEGAL -->
+    <div>
+      <h4>Support</h4>
+      <a href="terms.html">Terms & Conditions</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="about.html">about Us</a>
+      <a href="faq.html"> F&Q</a>
+    </div>
+
+    <!-- CONTACT + SOCIAL -->
+    <div>
+      <h4>Contact Us</h4>
+      <p>📞 +91 9470884239</p>
+      <p>🏠 Doorstep Service Available</p>
+
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank">📘</a>
+        <a href="https://instagram.com" target="_blank">📸</a>
+        <a href="https://youtube.com" target="_blank">▶️</a>
+        <a href="https://wa.me/919470884239" target="_blank">💬</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre. All Rights Reserved.
+  </div>
+
+</footer>
+
+</footer>
+
+<script>
+const loginModal = document.getElementById("loginModal");
+const signupModal = document.getElementById("signupModal");
+
+/* OPEN / CLOSE */
+function openLogin(){
+  loginModal.style.display="block";
+  signupModal.style.display="none";
+}
+function closeLogin(){
+  loginModal.style.display="none";
+}
+function openSignup(){
+  signupModal.style.display="block";
+  loginModal.style.display="none";
+}
+function closeSignup(){
+  signupModal.style.display="none";
+}
+
+/* SIGNUP */
+function signup(){
+  const name = signupName.value.trim();
+  const mobile = signupMobile.value.trim();
+
+  if(!name || !mobile){
+    alert("Fill all details");
+    return;
+  }
+
+  const user = { name, mobile, provider:"manual" };
+  localStorage.setItem("customer", JSON.stringify(user));
+
+  alert("Signup successful");
+  closeSignup();
+  updateNav();
+}
+
+/* LOGIN */
+function login(){
+  const mobile = loginMobile.value.trim();
+  if(!mobile){
+    alert("Enter mobile number");
+    return;
+  }
+
+  const user = { name:"Customer", mobile, provider:"manual" };
+  localStorage.setItem("customer", JSON.stringify(user));
+
+  alert("Login successful");
+  closeLogin();
+  updateNav();
+}
+
+/* SOCIAL (DEMO) */
+function googleSignup(){
+  localStorage.setItem("customer", JSON.stringify({
+    name:"Google User", mobile:"NA", provider:"google"
+  }));
+  alert("Google signup success");
+  closeSignup();
+  updateNav();
+}
+function facebookSignup(){
+  localStorage.setItem("customer", JSON.stringify({
+    name:"Facebook User", mobile:"NA", provider:"facebook"
+  }));
+  alert("Facebook signup success");
+  closeSignup();
+  updateNav();
+}
+
+/* LOGOUT */
+function logout(){
+  localStorage.removeItem("customer");
+  location.reload();
+}
+
+/* NAV UPDATE */
+function updateNav(){
+  const nav = document.getElementById("nav");
+  const customer = JSON.parse(localStorage.getItem("customer"));
+
+  if(customer){
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <a href="profile.html">Profile</a>
+    `;
+  }else{
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <span onclick="openLogin()">Login</span>
+      <span onclick="openSignup()">Signup</span>
+    `;
+  }
+}
+
+updateNav();
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* ADD TO CART */
+function addToCart(service){
+  if(cart.includes(service)){
+    alert("Service already added");
+    return;
+  }
+  cart.push(service);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  alert("Added to cart");
+}
+
+/* UPDATE CART COUNT */
+function updateCartCount(){
+  const count = document.getElementById("cartCount");
+  if(count){
+    count.innerText = cart.length;
+  }
+}
+
+/* PAGE LOAD */
+updateCartCount();
+function signupUser(){
+  const name = document.getElementById("signupName").value;
+  const mobile = document.getElementById("signupMobile").value;
+
+  if(!name || !mobile){
+    alert("Name aur Mobile dono bharo");
+    return;
+  }
+
+  fetch("http://localhost:5000/api/auth/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: name,
+      mobile: mobile,
+      provider: "manual"
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      alert("Signup successful");
+      localStorage.setItem("customer", JSON.stringify(data.user));
+      closeSignup();        // modal close
+      updateNav();          // header update
+    }else{
+      alert(data.message);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Server error");
+  });
+}
+function loginUser(){
+  const mobile = document.getElementById("loginMobile").value;
+
+  if(!mobile){
+    alert("Mobile number bharo");
+    return;
+  }
+
+  fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ mobile })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      alert("Login successful");
+
+      // 🔐 SAVE TOKEN & USER
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("customer", JSON.stringify(data.user));
+
+      closeLogin();
+      updateNav();
+    }else{
+      alert(data.message);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Server error");
+  });
+}
+</script>
+
+
+
+
+</script>
+
+</body>
+</html>

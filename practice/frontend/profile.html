@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  color:#333;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px}
+
+/* PROFILE WRAPPER */
+.profile-wrapper{
+  max-width:900px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+/* PROFILE CARD */
+.profile-card{
+  background:#fff;
+  border-radius:10px;
+  padding:30px;
+  box-shadow:0 6px 16px rgba(0,0,0,.1);
+}
+
+/* TOP */
+.profile-top{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border-bottom:1px solid #eee;
+  padding-bottom:20px;
+}
+.avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#0b5ed7;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+}
+.profile-name{
+  font-size:22px;
+  font-weight:bold;
+}
+.profile-sub{
+  font-size:14px;
+  color:#666;
+}
+
+/* DETAILS */
+.details{
+  margin-top:25px;
+}
+.detail-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px dashed #ddd;
+  font-size:14px;
+}
+.detail-row span:last-child{
+  font-weight:bold;
+}
+
+/* ACTIONS */
+.actions{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+}
+.action{
+  background:#f4f6fb;
+  padding:18px;
+  border-radius:8px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+.action:hover{
+  background:#e0ebff;
+}
+.action span{
+  display:block;
+  font-size:22px;
+}
+.action p{
+  margin:8px 0 0;
+  font-size:14px;
+  font-weight:bold;
+}
+
+/* BUTTON */
+.logout-btn{
+  margin-top:30px;
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:6px;
+  font-size:15px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+</header>
+
+<div class="profile-wrapper">
+
+  <div class="profile-card">
+
+    <!-- TOP -->
+    <div class="profile-top">
+      <div class="avatar">👤</div>
+      <div>
+        <div class="profile-name" id="userName">Customer</div>
+        <div class="profile-sub">Welcome to your account</div>
+      </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="details">
+      <div class="detail-row">
+        <span>Mobile Number</span>
+        <span id="userMobile"></span>
+      </div>
+      <div class="detail-row">
+        <span>Login Type</span>
+        <span id="loginType"></span>
+      </div>
+      <div class="detail-row">
+        <span>Account Status</span>
+        <span style="color:green">Active</span>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <div class="action" onclick="goOrders()">
+        <span>📦</span>
+        <p>My Orders</p>
+      </div>
+      <div class="action" onclick="bookService()">
+        <span>🛠️</span>
+        <p>Book Service</p>
+      </div>
+      <div class="action">
+        <span>✏️</span>
+        <p>Edit Profile</p>
+      </div>
+      <div class="action">
+        <span>📞</span>
+        <p>Support</p>
+      </div>
+    </div>
+
+    <!-- LOGOUT -->
+    <button class="logout-btn" onclick="logout()">Logout</button>
+
+  </div>
+
+</div>
+
+<script>
+/* 🔐 LOGIN CHECK */
+const customer = JSON.parse(localStorage.getItem("customer"));
+if(!customer){
+  alert("Please login first");
+  location.href="index.html";
+}
+
+/* LOAD DATA */
+document.getElementById("userName").innerText =
+  customer.name || "Customer";
+
+document.getElementById("userMobile").innerText =
+  customer.mobile || "Not Available";
+
+document.getElementById("loginType").innerText =
+  customer.provider
+    ? customer.provider.toUpperCase()
+    : "MANUAL";
+
+/* ACTIONS */
+function goOrders(){
+  location.href="dashboard.html";
+}
+function bookService(){
+  location.href="services.html";
+}
+function logout(){
+  localStorage.removeItem("customer");
+  location.href="index.html";
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refund & Cancellation Policy – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  color:#333;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px}
+nav a, nav span{
+  color:#fff;
+  margin-left:20px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:40px;
+  text-align:center;
+}
+.page-title h2{color:#0b5ed7}
+
+/* CONTENT */
+.section{
+  max-width:1000px;
+  margin:auto;
+  padding:40px 30px;
+}
+.card{
+  background:#fff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.card h3{
+  color:#0b5ed7;
+  margin-top:0;
+}
+.card p{
+  font-size:14px;
+  line-height:1.6;
+  margin-bottom:15px;
+}
+
+/* FOOTER */
+footer{
+  background:#084298;
+  color:#fff;
+  margin-top:50px;
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav id="nav"></nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>Refund & Cancellation Policy</h2>
+  <p>Please read our refund and cancellation terms carefully</p>
+</div>
+
+<!-- CONTENT -->
+<section class="section">
+  <div class="card">
+
+    <h3>1. Service Cancellation</h3>
+    <p>
+      Customers may cancel a booked service before technician assignment
+      without any cancellation charges.
+    </p>
+
+    <h3>2. Cancellation After Assignment</h3>
+    <p>
+      If cancellation is requested after a technician has been assigned,
+      a nominal service charge may be applicable.
+    </p>
+
+    <h3>3. Refund Eligibility</h3>
+    <p>
+      Refunds are applicable only if service could not be delivered
+      due to unavailability of technician or other operational issues.
+    </p>
+
+    <h3>4. Non-Refundable Cases</h3>
+    <p>
+      Inspection charges, completed services, and spare parts costs
+      are non-refundable once the service has been delivered.
+    </p>
+
+    <h3>5. Refund Processing Time</h3>
+    <p>
+      Approved refunds will be processed within 5–7 working days
+      through the original payment method.
+    </p>
+
+    <h3>6. Payment Mode</h3>
+    <p>
+      Refunds will be credited back to the same UPI or payment method
+      used during booking.
+    </p>
+
+    <h3>7. Contact for Refunds</h3>
+    <p>
+      For refund or cancellation requests, please contact our support team
+      via phone or WhatsApp.
+    </p>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+/* SMART NAV */
+function updateNav(){
+  const nav = document.getElementById("nav");
+  const customer = JSON.parse(localStorage.getItem("customer"));
+
+  if(customer){
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <a href="profile.html">Profile</a>
+    `;
+  }else{
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <span onclick="openLogin()">Login</span>
+      <span onclick="openSignup()">Signup</span>
+    `;
+  }
+}
+updateNav();
+</script>
+
+</body>
+</html>

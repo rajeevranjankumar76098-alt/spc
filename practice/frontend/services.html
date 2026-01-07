@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Services – SPC</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f6fb;color:#333}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;color:#fff;
+  padding:15px 40px;
+  display:flex;justify-content:space-between;align-items:center
+}
+header h1{font-size:22px;margin:0}
+nav a,nav span{color:#fff;margin-left:20px;font-size:14px;cursor:pointer}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:40px;
+  text-align:center
+}
+.page-title h2{color:#0b5ed7}
+
+/* FILTER */
+.section{max-width:1200px;margin:auto;padding:40px 30px}
+.filter-bar{
+  display:flex;flex-wrap:wrap;
+  gap:15px;margin-bottom:25px
+}
+.filter-bar input,.filter-bar select{
+  padding:8px;width:220px
+}
+
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px
+}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,.08)
+}
+.service-img{
+  width:70px;height:70px;
+  object-fit:contain;margin-bottom:10px
+}
+.price{color:#0b5ed7;font-weight:bold;margin:5px 0}
+.card button{
+  background:#0b5ed7;color:#fff;
+  border:none;padding:8px 15px;
+  border-radius:4px;cursor:pointer
+}
+
+/* FOOTER */
+footer{background:#084298;color:#fff;margin-top:50px}
+.footer-container{
+  max-width:1200px;margin:auto;
+  padding:50px 30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px
+}
+.footer-container h4{margin-bottom:10px}
+.footer-container a,.footer-container p{
+  font-size:14px;color:#fff;display:block
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;padding:12px;font-size:13px
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="book-service.html">Book Service</a>
+  </nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>Our Services</h2>
+  <p>Choose the service you need – fast & reliable</p>
+</div>
+
+<!-- FILTER -->
+<section class="section">
+  <div class="filter-bar">
+    <input type="text" id="search" placeholder="Search service..." onkeyup="filterServices()">
+    <select id="category" onchange="filterServices()">
+      <option value="all">All Categories</option>
+      <option value="home">Home Appliance</option>
+      <option value="electrical">Electrical</option>
+      <option value="it">IT & Electronics</option>
+    </select>
+  </div>
+
+  <!-- SERVICES LIST -->
+  <div class="services" id="serviceList">
+
+    <div class="card" data-cat="home" data-name="ac repair">
+      <img src="assets/services/ac.png" class="service-img">
+      <h4>AC Repair</h4>
+      <div class="price">₹499</div>
+      <button onclick="addToCart('AC Repair')">Add to Cart</button>
+    </div>
+
+    <div class="card" data-cat="home" data-name="washing machine">
+      <img src="assets/services/washing-machine.png" class="service-img">
+      <h4>Washing Machine</h4>
+      <div class="price">₹399</div>
+      <button onclick="addToCart('Washing Machine Repair')">Add to Cart</button>
+    </div>
+
+    <div class="card" data-cat="it" data-name="led tv">
+      <img src="assets/services/tv.png" class="service-img">
+      <h4>LED TV Repair</h4>
+      <div class="price">₹599</div>
+      <button onclick="addToCart('LED TV Repair')">Add to Cart</button>
+    </div>
+
+    <div class="card" data-cat="electrical" data-name="ceiling fan">
+      <img src="assets/services/fan.png" class="service-img">
+      <h4>Ceiling Fan Repair</h4>
+      <div class="price">₹199</div>
+      <button onclick="addToCart('Ceiling Fan Repair')">Add to Cart</button>
+    </div>
+
+    <!-- isi pattern me baaki services add ho sakti hain -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-container">
+    <div>
+      <h4>SPC</h4>
+      <p>Professional doorstep repair services.</p>
+    </div>
+    <div>
+      <h4>Links</h4>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>📞 9470884239</p>
+      <p>🏠 Doorstep Service</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+function addToCart(service){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(service);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  alert(service + " added to cart");
+}
+
+function filterServices(){
+  const search = document.getElementById("search").value.toLowerCase();
+  const cat = document.getElementById("category").value;
+  const cards = document.querySelectorAll("#serviceList .card");
+
+  cards.forEach(card=>{
+    const name = card.dataset.name;
+    const category = card.dataset.cat;
+    const matchSearch = name.includes(search);
+    const matchCat = (cat === "all" || cat === category);
+    card.style.display = (matchSearch && matchCat) ? "block" : "none";
+  });
+}
+</script>
+
+</body>
+</html>
+

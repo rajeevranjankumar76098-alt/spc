@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Service – SPC</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f6fb;color:#333}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;color:#fff;
+  padding:15px 40px;
+  display:flex;justify-content:space-between;align-items:center
+}
+header h1{font-size:22px;margin:0}
+nav a,nav span{color:#fff;margin-left:20px;font-size:14px;cursor:pointer}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:40px;text-align:center
+}
+.page-title h2{color:#0b5ed7;margin-bottom:8px}
+
+/* FORM */
+.section{max-width:900px;margin:auto;padding:40px 30px}
+.form-box{
+  background:#fff;padding:30px;border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08)
+}
+label{font-weight:bold;font-size:14px}
+input,textarea{
+  width:100%;padding:10px;margin:8px 0 18px;
+  border:1px solid #ccc;border-radius:4px
+}
+textarea{resize:vertical}
+button{
+  background:#0b5ed7;color:#fff;
+  border:none;padding:10px 20px;
+  border-radius:4px;cursor:pointer
+}
+
+/* SERVICES LIST */
+.service-list{
+  background:#f4f6fb;
+  padding:15px;border-radius:6px;
+  margin-bottom:20px
+}
+.service-item{
+  padding:6px 0;
+  border-bottom:1px dashed #ccc
+}
+.service-item:last-child{border:none}
+
+/* FOOTER */
+footer{background:#084298;color:#fff;margin-top:50px}
+.footer-container{
+  max-width:1200px;margin:auto;
+  padding:40px 30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px
+}
+.footer-container h4{margin-bottom:10px}
+.footer-container a,.footer-container p{
+  font-size:14px;color:#fff;display:block
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;padding:12px;font-size:13px
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav id="nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <span onclick="logout()">Logout</span>
+  </nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>Book Your Service</h2>
+  <p>Confirm your details & submit booking</p>
+</div>
+
+<!-- FORM -->
+<section class="section">
+  <div class="form-box">
+
+    <h3>Selected Services</h3>
+    <div class="service-list" id="serviceList">
+      <!-- Cart services will appear here -->
+    </div>
+
+    <form onsubmit="submitBooking(event)">
+      <label>Customer Name</label>
+      <input type="text" id="name" required>
+
+      <label>Mobile Number</label>
+      <input type="text" id="mobile" required readonly>
+
+      <label>Service Address</label>
+      <input type="text" id="address" placeholder="Full address" required>
+
+      <label>Problem Description</label>
+      <textarea id="problem" rows="4" placeholder="Describe your issue"></textarea>
+
+      <button type="submit">Confirm Booking</button>
+    </form>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-container">
+    <div>
+      <h4>SPC</h4>
+      <p>Reliable doorstep repair services.</p>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="refund.html">Refund</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>📞 9470884239</p>
+      <p>🏠 Doorstep Service</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+/* ---------- LOGIN CHECK ---------- */
+const customer = JSON.parse(localStorage.getItem("customer"));
+if(!customer){
+  alert("Please login first");
+  location.href="index.html";
+}
+
+/* ---------- LOAD CART SERVICES ---------- */
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const list = document.getElementById("serviceList");
+
+if(cart.length === 0){
+  list.innerHTML = "<p>No services selected.</p>";
+} else {
+  cart.forEach(s=>{
+    list.innerHTML += `<div class="service-item">• ${s}</div>`;
+  });
+}
+
+/* ---------- PREFILL CUSTOMER ---------- */
+document.getElementById("name").value = customer.name || "";
+document.getElementById("mobile").value = customer.mobile || "";
+
+/* ---------- SUBMIT BOOKING ---------- */
+function submitBooking(e){
+  e.preventDefault();
+
+  alert("Booking submitted successfully!");
+
+  // Clear cart after booking
+  localStorage.removeItem("cart");
+
+  // Redirect to dashboard later
+  // location.href = "dashboard.html";
+}
+
+/* ---------- LOGOUT ---------- */
+function logout(){
+  localStorage.removeItem("customer");
+  location.href="index.html";
+}
+</script>
+
+</body>
+</html>

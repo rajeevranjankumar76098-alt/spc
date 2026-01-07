@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us – SPC</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  color:#333;
+}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px}
+nav a, nav span{
+  color:#fff;
+  margin-left:20px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* PAGE TITLE */
+.page-title{
+  background:#e9f1ff;
+  padding:40px;
+  text-align:center;
+}
+.page-title h2{color:#0b5ed7}
+
+/* SECTION */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 30px;
+}
+.card{
+  background:#fff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  margin-bottom:30px;
+}
+.card h3{color:#0b5ed7;margin-top:0}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+.point{
+  background:#f4f6fb;
+  padding:20px;
+  border-radius:6px;
+  text-align:center;
+}
+
+/* FOOTER */
+footer{
+  background:#084298;
+  color:#fff;
+  margin-top:50px;
+}
+.footer-bottom{
+  background:#06357a;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>SPC – Service Provider Centre</h1>
+  <nav id="nav"></nav>
+</header>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h2>About Us</h2>
+  <p>Know more about SPC – Service Provider Centre</p>
+</div>
+
+<!-- CONTENT -->
+<section class="section">
+
+  <!-- ABOUT -->
+  <div class="card">
+    <h3>Who We Are</h3>
+    <p>
+      SPC – Service Provider Centre is a professional service company
+      providing reliable doorstep repair and maintenance services for
+      home appliances, electronics, and electrical products.
+    </p>
+    <p>
+      Our goal is to make repair services easy, transparent, and affordable
+      for every customer.
+    </p>
+  </div>
+
+  <!-- MISSION / VISION -->
+  <div class="grid">
+    <div class="card">
+      <h3>Our Mission</h3>
+      <p>
+        To deliver fast, reliable, and quality repair services at the
+        customer’s doorstep with complete transparency.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Our Vision</h3>
+      <p>
+        To become India’s most trusted multi-service repair platform
+        connecting customers with skilled technicians.
+      </p>
+    </div>
+  </div>
+
+  <!-- WHY CHOOSE -->
+  <div class="card">
+    <h3>Why Choose SPC?</h3>
+    <div class="grid">
+      <div class="point">✔ Trained & Verified Technicians</div>
+      <div class="point">✔ Doorstep Service</div>
+      <div class="point">✔ Transparent Pricing</div>
+      <div class="point">✔ Fast Service Support</div>
+      <div class="point">✔ Customer Satisfaction</div>
+      <div class="point">✔ Wide Range of Services</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    © 2025 SPC – Service Provider Centre
+  </div>
+</footer>
+
+<script>
+/* SMART NAV */
+function updateNav(){
+  const nav = document.getElementById("nav");
+  const customer = JSON.parse(localStorage.getItem("customer"));
+
+  if(customer){
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <a href="profile.html">Profile</a>
+    `;
+  }else{
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="book-service.html">Book Service</a>
+      <span onclick="openLogin()">Login</span>
+      <span onclick="openSignup()">Signup</span>
+    `;
+  }
+}
+updateNav();
+</script>
+
+</body>
+</html>
